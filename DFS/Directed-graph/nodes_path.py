@@ -22,8 +22,9 @@ class DirectedGraph:
             if node not in visited:
                 visited.add(node)
                 for neighbor in self.adjacency_list[node]:
-                    if neighbor not in visited:
-                        dfs(neighbor)
+                    if neighbor in visited:
+                        continue
+                    dfs(neighbor)
         dfs(node)
     
         return len(visited) == self.num_nodes
@@ -36,11 +37,12 @@ class DirectedGraph:
 
         while stack:
             cur_node = stack.pop()
-            if cur_node not in visited:
-                visited.add(cur_node)
-                for neighbor in self.adjacency_list[cur_node]:
-                    if neighbor not in visited:
-                        stack.append(neighbor)
+            if cur_node in visited:
+                continue
+            visited.add(cur_node)
+            for neighbor in self.adjacency_list[cur_node]:
+                if neighbor not in visited:
+                    stack.append(neighbor)
 
         return len(visited) == self.num_nodes
     
